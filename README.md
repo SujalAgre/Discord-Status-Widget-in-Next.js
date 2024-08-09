@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Discord Status Widget in Next.js
 
-## Getting Started
+Create a new folder named components in the project root directory.
+then create a new component and name it "DiscordStatus.js" and paste the following inside it
 
-First, run the development server:
+```
+"use client"
+import React, { useState, useEffect } from "react";
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+function DiscordStatus() {
+
+    const [discordData, setData] = useState(null);
+
+  useEffect(()=>{
+
+    async function fetchDiscordData () {
+  
+      const response = await fetch("https://api.lanyard.rest/v1/users/414997646894301206");
+      
+      const data = await response.json();
+          
+      setData(data);
+    }
+
+    fetchDiscordData();
+
+  },[]);
+  
+
+  const statusImages = {
+    online: "/status/online.png",
+    dnd: "/status/dnd.png",
+    idle: "/status/idle.png",
+    offline: "/status/offline.png"
+  }
+
+  console.log(statusImages.online);
+
+  function getStatusImage(status)
+  {
+    return statusImages[status];
+  };
+
+    
+  return(
+    <>
+        {discordData ? <img src={getStatusImage(discordData.data.discord_status)}/> : "Loading.." }
+    </>
+  );
+
+}
+export default DiscordStatus;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now inside "page.js" file. You will need to import the component created above.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Paste the following at the top of the code inorder to import the component
+```
+import DiscordStatus from "/components/DiscordStatus.js"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Use "DiscordStatus" to use the component.
 
-## Learn More
+If you want the widget to show your own status, just [join this Discord server](https://discord.gg/UrXF2cfJ7F)
+and inside "DiscordStatus.js" put your discord user id here ```https://api.lanyard.rest/v1/users/[your_id_here]```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Learn more](https://github.com/Phineas/lanyard?tab=readme-ov-file) about the api.

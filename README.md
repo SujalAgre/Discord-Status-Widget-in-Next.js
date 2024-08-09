@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Discord Status Widget in Next.js](https://discord-status-widget-in-next-js.vercel.app/)
+This guide will help you integrate a dynamic Discord status widget into your Next.js project.
 
-## Getting Started
+### Step 1: Create the Discord Status Component
+1. Create a folder named `components` in your project folder if it doesn't exist.
+2. Inside the `components` folder, create a file named `DiscordStatus.js`.
+3. Copy the code for the Discord Status component from [this link](https://github.com/SujalAgre/Discord-Status-Widget-in-Next.js/blob/main/components/DiscordStatus.js) and paste it into `DiscordStatus.js`.
 
-First, run the development server:
+### Step 2: Add Status Images
+1. Create a folder named `public` in your project root if it doesn't exist.
+2. Inside the `public` folder, create a subfolder named `status`.
+3. Download the status images from [this folder](https://github.com/SujalAgre/Discord-Status-Widget-in-Next.js/tree/main/public/status) and place them in the `public/status` folder.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Step 3: Get Your Discord User ID
+To display your own Discord status, you need to use your Discord user ID:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Enable Developer Mode in Discord:
+   
+   <img src="https://support.discord.com/hc/article_attachments/22015896495255" width="60%">
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Right-click on your profile in a Discord chat and copy your user ID:
+   
+   ![Copy User ID](https://support.discord.com/hc/article_attachments/22015896535959)
+   
+### Step 4: Join the Lanyard API Discord Server
+To get your Discord status information, we are using the Lanyard API. For the widget to show your own status [Join this Discord server](https://discord.gg/UrXF2cfJ7F) and your discord data will be visible at `https://api.lanyard.rest/v1/users/[your_id_here]`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> Learn more about the [Lanyard API](https://github.com/Phineas/lanyard).
 
-## Learn More
+### Step 5: Update the User ID in the Component
+Open the `DiscordStatus.js` file and replace the user ID in the fetch URL with your own:
 
-To learn more about Next.js, take a look at the following resources:
+![Update User ID](https://i.imgur.com/Xk7jt8f.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Step 6: Import and Use the Discord Status Component
+1. In the file where you want to display the widget (e.g., `app/page.js`), import the `DiscordStatus` component:
+   ```javascript
+   import DiscordStatus from '@/components/DiscordStatus';
+   ```
+2. Add the `DiscordStatus` component in your JSX:
+   ```jsx
+   <DiscordStatus />
+   ```
+   Here's an example of how to integrate it:
+   
+   ![Add Discord Status Widget](https://i.imgur.com/CgohqUd.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Result
+After following these steps, your Discord status widget should be integrated and look similar to this:
 
-## Deploy on Vercel
+<img src="https://i.imgur.com/D1TibyC.png" width="20%">
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+It will change according to your current Discord status.
